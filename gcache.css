@@ -103,6 +103,11 @@ body {
 .logo .blue { color: #325ae8; }
 .logo .darkblue { color: #2b4ec9; }
 
+.logo a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .logo p {
     margin: 0;
 }
