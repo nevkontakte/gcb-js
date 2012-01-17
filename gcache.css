@@ -179,7 +179,7 @@ body {
     width: 60%;
 }
 
-.page .copy, .page .disclaimer {
+.page .copy, .page .disclaimer, .page .eomy {
     color: #666666;
     text-align: center;
     width: 60%;
@@ -191,6 +191,10 @@ body {
 
 .page .copy a {
     color: inherit;
+}
+
+.page .eomy {
+    font-size: 0.8em;
 }
 
 .page .github {
