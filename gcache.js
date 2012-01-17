@@ -15,7 +15,7 @@ var gcb = new function () {
 			try {
 				if (jQuery != undefined) {
 					silence = false;
-					callback.apply(this, {});
+					callback.apply(this, []);
 					return;
 				}
 			}
@@ -102,13 +102,13 @@ var gcb = new function () {
 			// Resize url bar
 			var width = toolbar.width();
 			width -= logo.outerWidth(true);
-			width -= urlBar.outerWidth(true) - urlBar.width();
+			width -= urlBar.outerWidth(true) - urlBar.width()+20;
 			urlBar.width(width);
 
 			// Resize url input
 			width = urlBar.width();
 			width -= go.outerWidth(true);
-			width -= url.outerWidth(true) - url.width();
+			width -= url.outerWidth(true) - url.width()+20;
 			url.width(width);
 		};
 
