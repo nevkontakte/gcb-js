@@ -44,6 +44,14 @@ var gcb = new function () {
 		$(".overlay.load").fadeIn('fast');
 		$(".viewport").attr('src', query);
 		$(".url input").val(url);
+	};
+
+	this.goHash = function() {
+		var hash = document.location.hash;
+		if(hash.indexOf("#go=") == 0) {
+			var url = hash.replace(/#go=/i, '');
+			self.go(url);
+		}
 	}
 
 	this.init = function () {
@@ -128,14 +136,16 @@ var gcb = new function () {
 
 		url.focus();
 
-		// Preload images
-		var preload = function (){
-			var loading = new Image();
-			loading.src = "images/ajax-loader.gif";
-			var bg = new Image();
-			bg.src = "images/overlay.png";
-		}();
+		self.goHash();
 	};
+
+	// Preload images
+	var preload = function (){
+		var loading = new Image();
+		loading.src = "images/ajax-loader.gif";
+		var bg = new Image();
+		bg.src = "images/overlay.png";
+	}();
 
 	this.loadJQuery(document, function(){
 		self.init();
