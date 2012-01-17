@@ -6,7 +6,13 @@ var gcb = new function () {
 		var jqLoad = document.createElement("script");
 		jqLoad.setAttribute("type", "text/javascript");
 		jqLoad.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js");
-		document.head.appendChild(jqLoad);
+		if(document.head != null) {
+			document.head.appendChild(jqLoad);
+		} else if(document.body != null) {
+			document.body.appendChild(jqLoad);
+		} else {
+			document.appendChild(jqLoad);
+		}
 
 		// Wait until jQuery is loaded. Check it every 200 ms.
 		var timer = null;
