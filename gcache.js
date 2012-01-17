@@ -35,6 +35,7 @@ var gcb = new function () {
 		if(url == "") {
 			query = "about:blank";
 		}
+		$(".overlay.load").fadeIn('fast');
 		$(".viewport").attr('src', query);
 		$(".url input").val(url);
 	}
@@ -42,8 +43,8 @@ var gcb = new function () {
 	this.init = function () {
 		$("div").hide();
 		var toolbar = $("<div class='toolbar'></div>");
-
-		var logo = $("<div class='logo'><p class='darkblue'><span class='google'>" +
+		
+		var logo = $("<div class='logo'><p class='darkblue'><a href='http://cache.nevkontakte.com/'><span class='google'>" +
 				"<span class='blue'>G</span>" +
 				"<span class='red'>o</span>" +
 				"<span class='yellow'>o</span>" +
@@ -51,7 +52,7 @@ var gcb = new function () {
 				"<span class='green'>l</span>" +
 				"<span class='red'>e</span>" +
 				"</span>&#153; cache browser" +
-				"</p></div>");
+				"</a></p></div>");
 		logo.appendTo(toolbar);
 
 		var urlBar = $("<div class='url'><form action='#'><input type='text' id='url'></form><div class='go'>&rarr;</div></div>");
@@ -72,8 +73,13 @@ var gcb = new function () {
 		var view = $("<div class='view'><iframe class='viewport' src='about:blank'></iframe></div> ");
 		view.css('margin-top', toolbar.height() + 2 + "px");
 		var viewport = $("iframe", view);
+		var loadOverlay = $("<div class='overlay load'><img src='images/ajax-loader.gif' alt='Loading...'></div>");
+		loadOverlay.hide();
+		loadOverlay.appendTo(view);
+
 		viewport.load(function(){
 			var frame = this;
+			loadOverlay.fadeOut('fast');
 
 			try {
 				$("a", frame.contentDocument).each(function(){
@@ -90,7 +96,8 @@ var gcb = new function () {
 
 		var resizer = function () {
 			// Resize iframe
-			view.height($(window).height() - toolbar.outerHeight() - 2);
+			view.css('margin-top', toolbar.height() + 1 + "px");
+			view.height($(window).height() - toolbar.outerHeight() - 1);
 
 			// Resize url bar
 			var width = toolbar.width();
@@ -107,10 +114,21 @@ var gcb = new function () {
 
 		resizer();
 		$(window).resize(resizer);
+		$(document).load(function(){
+			resizer();
+		});
 
 		view.appendTo(document.body);
 
 		url.focus();
+
+		// Preload images
+		var preload = function (){
+			var loading = new Image();
+			loading.src = "images/ajax-loader.gif";
+			var bg = new Image();
+			bg.src = "images/overlay.png";
+		}();
 	};
 
 	this.loadJQuery(document, function(){
