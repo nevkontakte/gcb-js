@@ -1,7 +1,7 @@
 var gcb = new function () {
 	var self = this;
 
-	var loadJQuery = function (callback) {
+	this.loadJQuery = function (document, callback) {
 		// Load jQuery from Google CDN
 		var jqLoad = document.createElement("script");
 		jqLoad.setAttribute("type", "text/javascript");
@@ -15,7 +15,7 @@ var gcb = new function () {
 			try {
 				if (jQuery != undefined) {
 					silence = false;
-					callback();
+					callback.apply(this, {});
 					return;
 				}
 			}
@@ -32,6 +32,9 @@ var gcb = new function () {
 
 	this.go = function (url) {
 		var query = "http://webcache.googleusercontent.com/search?q=" + encodeURIComponent("cache:" + url);
+		if(url == "") {
+			query = "about:blank";
+		}
 		$(".viewport").attr('src', query);
 		$(".url input").val(url);
 	}
@@ -66,8 +69,24 @@ var gcb = new function () {
 
 		toolbar.appendTo(document.body);
 
-		var view = $("<div class='view'><iframe class='viewport' src='http://example.com/'></iframe></div> ");
+		var view = $("<div class='view'><iframe class='viewport' src='about:blank'></iframe></div> ");
 		view.css('margin-top', toolbar.height() + 2 + "px");
+		var viewport = $("iframe", view);
+		viewport.load(function(){
+			var frame = this;
+
+			try {
+				$("a", frame.contentDocument).each(function(){
+					$(this).click(function(){
+						self.go(this.href);
+						return false;
+					});
+				});
+			}
+			catch (e) {
+
+			}
+		});
 
 		var resizer = function () {
 			// Resize iframe
@@ -94,5 +113,7 @@ var gcb = new function () {
 		url.focus();
 	};
 
-	loadJQuery(this.init);
+	this.loadJQuery(document, function(){
+		self.init();
+	});
 };
