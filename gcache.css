@@ -69,12 +69,15 @@ body {
 .toolbar .logo {
     padding: 0.2ex 0.2ex 0.2ex 1ex;
     font-size: 1.5em;
+}
+
+.logo {
     font-family: 'Droid Sans', sans-serif;
     text-shadow: #333333 1px 1px 2px;
     cursor: default;
 }
 
-.toolbar .logo .google {
+.logo .google {
     letter-spacing: 0.2ex;
     font-family: 'Lora', serif;
 }
@@ -138,4 +141,57 @@ body {
     top: 50%;
     left: 50%;
     margin: -9px 0 0 -110px;
+}
+
+/*
+ Index page styles
+*/
+
+.page .notes a {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.page .logo {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 2em;
+}
+
+.page .logo .google {
+    font-size: 1.5em;
+}
+
+.page .url {
+    display: block;
+    width: 40em;
+    margin: 2em auto 0 auto;
+}
+
+.page .url input {
+    width: 39em;
+}
+
+.page .notes div {
+    text-shadow: #FFFFFF -1px -1px 0px;
+    margin: 1em auto 0 auto;
+    text-align: center;
+    width: 60%;
+}
+
+.page .copy, .page .disclaimer {
+    color: #666666;
+    text-align: center;
+    width: 60%;
+}
+
+.page .disclaimer {
+    margin-top: 3em!important;
+}
+
+.page .copy a {
+    color: inherit;
+}
+
+.page .github {
 }
