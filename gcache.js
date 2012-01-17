@@ -31,8 +31,7 @@ var gcb = new function () {
 	};
 
 	this.go = function (url) {
-		var query = "http://webcache.googleusercontent.com/search?q="+encodeURIComponent("cache:"+url);
-		alert(query);
+		var query = "http://webcache.googleusercontent.com/search?q=" + encodeURIComponent("cache:" + url);
 		$(".viewport").attr('src', query);
 		$(".url input").val(url);
 	}
@@ -52,13 +51,17 @@ var gcb = new function () {
 				"</p></div>");
 		logo.appendTo(toolbar);
 
-		var urlBar = $("<div class='url'><input type='text' id='url'><div class='go'>&rarr;</div></div>");
+		var urlBar = $("<div class='url'><form action='#'><input type='text' id='url'></form><div class='go'>&rarr;</div></div>");
 		var go = $(".go", urlBar);
 		var url = $("input", urlBar);
 		urlBar.appendTo(toolbar);
 
-		go.click(function(){
+		go.click(function () {
 			self.go(url.val());
+		});
+		$("form", urlBar).submit(function () {
+			self.go(url.val());
+			return false;
 		});
 
 		toolbar.appendTo(document.body);
@@ -88,7 +91,8 @@ var gcb = new function () {
 
 		view.appendTo(document.body);
 
+		url.focus();
 	};
 
 	loadJQuery(this.init);
-}
+};
