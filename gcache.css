@@ -61,16 +61,40 @@ body {
     border-bottom: 1px solid #A0A0A0;
 }
 
+.toolbar .logo, .toolbar .url, .url .go, .url input {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .toolbar .logo {
     padding: 0.2ex 0.2ex 0.2ex 1ex;
     font-size: 1.5em;
     font-family: 'Droid Sans', sans-serif;
     text-shadow: #333333 1px 1px 2px;
+    cursor: default;
 }
 
 .toolbar .logo .google {
     letter-spacing: 0.2ex;
     font-family: 'Lora', serif;
+}
+
+.url {
+    padding: 3px;
+    border: 1px solid #A0A0A0;
+    margin: 3px 1em;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    cursor: default;
+}
+
+.url input {
+    border: none;
+}
+
+.url .go {
+    cursor: pointer;
+    cursor: hand;
 }
 
 .logo .red { color: #E82042; }
