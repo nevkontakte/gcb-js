@@ -7,15 +7,43 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            var submit = function(){
+            var go = function(url) {
                 var base = "http://webcache.googleusercontent.com/search?q=cache%3Ahttp%3A%2F%2Fcache.nevkontakte.com%2Fproxy.html#go=";
-                var url = $(".url input").val();
+                console.log(base+url);
                 document.location.href = base+url;
-                return false;
+            };
+
+            var hash = document.location.hash;
+            if(hash.indexOf("#go=") == 0) {
+                var url = hash.replace(/#go=/i, '');
+                go(url);
             }
+
+            var submit = function(){
+                var url = $(".url input").val();
+                go(url);
+                return false;
+            };
+
+
             $(".go").click(submit);
             $(".url form").submit(submit);
             $(".url input").focus();
+
+            var bookmarklet = function() {
+                var loader = document.createElement("script");
+                loader.setAttribute("type", "text/javascript");
+                loader.setAttribute("src", "http://cache.nevkontakte.com/bookmarklet.js");
+                if(document.head != null) {
+                    document.head.appendChild(loader);
+                } else if(document.body != null) {
+                    document.body.appendChild(loader);
+                } else {
+                    document.appendChild(loader);
+                }
+            };
+
+            $(".bookmarklet .bm a").attr("href","javascript:void("+encodeURIComponent(bookmarklet.toString())+"())");
         });
     </script>
 </head>
@@ -33,7 +61,9 @@
     </p>
 </div>
 <div class='url'><form action='#'><input type='text' id='url'></form><div class='go'>&rarr;</div></div>
-
+<div class="bookmarklet">
+    <p class="bm"><a href="#">Google Cache Browser</a><span class="hint">&larr; Add this link to bookmarks to be able to use GCB on any page.</span></p>
+</div>
 <div class="notes">
     <div class="github">Google Cache Browser 2.0 is and open-source application, licensed under GPL v3. Feel free to fork us on <a href="https://github.com/nevkontakte/gcb-js">GitHub</a>.</div>
 
