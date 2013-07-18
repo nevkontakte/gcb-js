@@ -124,6 +124,12 @@
 <script type="text/javascript" src="//canjs.com/release//1.1.6/can.jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/gcb.js"></script>
-
+<script type="text/javascript">
+    $(function() {
+        new Gcb.BackendManager();
+        new Gcb.Form("#gcb-form");
+        new Gcb.Bookmarklet('.gcb-bookmarklet')
+    });
+</script>
 </body>
 </html>

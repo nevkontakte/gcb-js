@@ -1,7 +1,9 @@
-(function() {
+var Gcb = (function() {
     "use strict";
 
-    var GcbForm = can.Control({
+    var publish = {};
+
+    publish.Form = can.Control({
         /**
          *
          * @param el HTMLObjectElement
@@ -13,7 +15,7 @@
         }
     });
 
-    var GcbBackendManager = can.Control({
+    publish.BackendManager = can.Control({
         'defaults': {
             'backend' : 'http://webcache.googleusercontent.com/search?q=cache%3Ahttp%3A%2F%2Fcache.nevkontakte.com%2Fproxy.html'
         }
@@ -28,7 +30,7 @@
         }
     });
 
-    var GcbBookmarklet = can.Control({
+    publish.Bookmarklet = can.Control({
         init: function(el) {
             var bookmarklet = function() {
                 var loader = document.createElement("script");
@@ -47,9 +49,5 @@
         }
     });
 
-    $(function() {
-        new GcbBackendManager();
-        new GcbForm("#gcb-form");
-        new GcbBookmarklet('.gcb-bookmarklet')
-    });
+    return publish;
 }());
