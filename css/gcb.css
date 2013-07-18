@@ -1,0 +1,19 @@
+.navbar .btn-navbar {
+    height: auto;
+    min-height: inherit;
+}
+
+h1.gcb-logo {
+    text-align: center;
+    font-size: 6em;
+}
+
+h1.gcb-logo small{
+    font-size: 40%;
+}
+
+.gcb-logo .red { color: #E82042; }
+.gcb-logo .yellow { color: #FEC055; }
+.gcb-logo .green { color: #00AF31; }
+.gcb-logo .blue { color: #325ae8; }
+.gcb-logo .darkblue { color: #2b4ec9; }

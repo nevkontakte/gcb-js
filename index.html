@@ -11,46 +11,17 @@
 
     <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-    <link href="css/bootplus-responsive.css" rel="stylesheet">
+    <link href="css/bootplus.css" rel="stylesheet" type="text/css">
+    <link href="css/bootplus-responsive.css" rel="stylesheet" type="text/css">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="css/gcb.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         body {
             padding-top: 20px;
             padding-bottom: 40px;
             background-color: #FFF;
         }
-
-            /* Custom container */
-        .container-narrow {
-            margin: 0 auto;
-            max-width: 700px;
-        }
-        .container-narrow > hr {
-            margin: 30px 0;
-        }
-
-            /* Main marketing message and sign up button */
-        .jumbotron {
-            margin: 60px 0;
-            text-align: center;
-        }
-        .jumbotron h1 {
-            font-size: 72px;
-            line-height: 1;
-        }
-        .jumbotron .btn {
-            font-size: 21px;
-            padding: 14px 24px;
-        }
-
-            /* Supporting marketing content */
-        .marketing {
-            margin: 60px 0;
-        }
-        .marketing p + h4 {
-            margin-top: 28px;
-        }
     </style>
-    <link href="css/bootplus-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -67,55 +38,81 @@
 
 <body>
 
-<div class="container-narrow">
+<div class="container">
 
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="muted">Project name</h3>
-    </div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
 
-    <hr>
-
-    <div class="jumbotron">
-        <h1>Super awesome marketing speak!</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <a class="btn btn-large btn-success" href="#">Sign up today</a>
-    </div>
-
-    <hr>
-
-    <div class="row-fluid marketing">
-        <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                <a class="brand" href="">Google Cache Browser</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav nav-pills pull-right">
+                        <li class="active"><a href="#!"><i class="icon-home"></i> Home</a></li>
+                        <li><a href="#!about"><i class="icon-info-sign"></i> About</a></li>
+                        <li><a href="#!contact"><i class="icon-envelope"></i> Contact</a></li>
+                        <li><a href="https://github.com/nevkontakte/gcb-js"><i class="icon-github"></i> GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
     </div>
 
     <hr>
 
-    <div class="footer">
-        <p>&copy; Company 2013</p>
+
+    <div class="row">
+        <div class="span2">
+
+        </div>
+        <div class="span8 text-center">
+            <h1 class="gcb-logo">
+                <span class='blue'>G</span><span class='red'>o</span><span class='yellow'>o</span><span class='blue'>g</span><span class='green'>l</span><span class='red'>e</span> <br>
+                <small>Cache Browser <sup>3.0</sup></small>
+            </h1>
+
+            <form id="gcb-form" class="form-search">
+                <div class="input-append">
+                    <input type="text" class="span7" placeholder="Enter web page URL" name="url">
+                    <button type="submit" class="btn">
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="span2 text-center">
+            <p><a class="btn btn-success btn-block gcb-bookmarklet" href="#">Google&nbsp;Cache</a></p>
+            <p><span class="icon-long-arrow-up"></span> Activate GCB in a single click. Just add this link to bookmarks toolbar.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="offset2 span8">
+            <p class="lead text-center">
+                Google Cache Browser 3.0 is and open-source application, licensed under GPL v3. Feel free to fork us on <a href="https://github.com/nevkontakte/gcb-js">GitHub</a>.
+            </p>
+            <p class="text-center muted">
+                Google Cache Browser is not affiliated with Google, Inc in any kind. Responsibility on displayed cache contents is completely on Google and Google Cache Browser service is provided "AS IS".
+            </p>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <div class="row">
+        <div class="offset8 span4">
+            <p>
+                &copy; <a href="http://nevkontakte.com">nevkontakte.com</a>,
+                <script type="text/javascript">document.write(new Date().getFullYear().toString())</script>.
+            </p>
+            <p><!--eomy--></p>
+        </div>
     </div>
 
 </div> <!-- /container -->
@@ -123,7 +120,10 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/bootstrap.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="//canjs.com/release//1.1.6/can.jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/gcb.js"></script>
 
 </body>
 </html>
