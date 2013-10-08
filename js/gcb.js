@@ -37,9 +37,7 @@ var Gcb = (function(publish) {
                 var loader = document.createElement("script");
                 loader.setAttribute("type", "text/javascript");
                 loader.setAttribute("src", "http://cache.nevkontakte.com/bookmarklet.js");
-                if(document.head != null) {
-                    document.head.appendChild(loader);
-                } else if(document.body != null) {
+                if(document.body != null) {
                     document.body.appendChild(loader);
                 } else {
                     document.appendChild(loader);
@@ -53,7 +51,7 @@ var Gcb = (function(publish) {
     publish.Navbar = can.Control({
         init: function(el) {
             el.attr('class', 'navbar navbar-static-top navbar-inverse');
-            $('<div class="navbar-inner">\
+            $('<!--suppress HtmlUnknownAnchorTarget --><div class="navbar-inner">\
                 <div class="container">\
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\
                 <span class="icon-bar"></span>\
@@ -90,7 +88,7 @@ var Gcb = (function(publish) {
             this.navbar = options.navbar;
             this.default = window.location.href.split(location.hash||"#")[0];
 
-            this.view = $('<iframe frameborder="0" src="' + this.default + '">');
+            this.view = $('<iframe style="border: none" src="' + this.default + '">');
             this.view.css('background', '#FFF');
             this.view.css('width', '100%');
 
@@ -108,6 +106,10 @@ var Gcb = (function(publish) {
             );
         },
 
+        /**
+         * AJAX callback. Replaces current viewport contents with new one passed in data.
+         * @param data HTML string of new page.
+         */
         replaceContent: function(data) {
             var doc = this.view.get(0).contentDocument;
 
@@ -129,6 +131,11 @@ var Gcb = (function(publish) {
             this.watchLinks(1, 0);
         },
 
+        /**
+         * Watch for content loading process and put GCB hook on all links which appear on the page.
+         * @param delay Delay in milliseconds for next check.
+         * @param hookedLinks Number of links which were hooked already.
+         */
         watchLinks: function(delay, hookedLinks) {
             var doc = $(this.view.get(0).contentDocument);
 
@@ -136,7 +143,7 @@ var Gcb = (function(publish) {
 
             var linksLength = links.length;
 
-            links.filter(":not(.--gcb-hooked-link)").on("click", function(e){
+            links.filter(":not(.--gcb-hooked-link)").on("click", function(){
                 can.route.attr('url', this.href);
                 console.log("Click", this.href);
                 return false;
