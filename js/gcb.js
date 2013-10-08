@@ -128,6 +128,9 @@ var Gcb = (function(publish) {
             doc.write(data);
             doc.close();
 
+            // Workaround: prevent horizontal scrollbar in iframe cased by Google cache banner.
+            $(doc).find('div:first').css('margin', '0').css('padding', '0');
+
             this.watchLinks(1, 0);
         },
 
