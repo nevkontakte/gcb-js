@@ -88,28 +88,15 @@ var Gcb = (function(publish) {
              * @type {jQuery}
              */
             this.navbar = options.navbar;
+            this.default = window.location.href.split(location.hash||"#")[0];
 
-            this.view = $('<iframe frameborder="0">');
+            this.view = $('<iframe frameborder="0" src="' + this.default + '">');
             this.view.css('background', '#FFF');
             this.view.css('width', '100%');
 
             this.card = $('<div class="card">');
             this.element.append(this.card.append(this.view));
             this.element.addClass('container gcb-viewport');
-
-            this.view.load(function(){
-                var frame = this;
-                $("a", frame.contentDocument).each(function(){
-                    $(this).click(function(e){
-                        e.preventDefault();
-                        can.route.attr('url', this.href);
-                        console.log(this.href);
-                        return false;
-                    });
-                });
-                alert('Done');
-
-            });
         },
 
         'resize': function() {
@@ -121,20 +108,67 @@ var Gcb = (function(publish) {
             );
         },
 
+        replaceContent: function(data) {
+            var doc = this.view.get(0).contentDocument;
+
+            // Workaround in case of accidental leaving Google cache context
+            // To overcome same origin policy we need to reset iframe to about:blank
+            // and retry accessing document.
+            // TODO Test in other browsers
+            if(doc == null) {
+                this.view.attr('src', 'about:blank');
+                setTimeout($.proxy(function(){this.replaceContent(data)}, this), 0);
+                return;
+            }
+
+
+            doc.open();
+            doc.write(data);
+            doc.close();
+
+            this.watchLinks(1, 0);
+        },
+
+        watchLinks: function(delay, hookedLinks) {
+            var doc = $(this.view.get(0).contentDocument);
+
+            var links = doc.find('a');
+
+            var linksLength = links.length;
+
+            links.filter(":not(.--gcb-hooked-link)").on("click", function(e){
+                can.route.attr('url', this.href);
+                console.log("Click", this.href);
+                return false;
+            }).addClass("--gcb-hooked-link");
+
+            if(doc.readyState !== "complete") {
+                if(hookedLinks == linksLength) {
+                    delay = Math.min(delay*2, 300);
+                } else {
+                    delay = 1;
+                }
+
+                setTimeout($.proxy(function(){
+                    this.watchLinks(delay, linksLength);
+                }, this), delay);
+            }
+        },
+
         '{window} resize': function() {
             this.resize();
         },
 
         'go/:url route': function(data) {
-            var query = "http://webcache.googleusercontent.com/search?q=" + encodeURIComponent("cache:" + data['url']);
+            var doc = this.view.get(0).contentDocument;
             if(data['url'] == "") {
-                query = "about:blank";
+                doc.location.replace(this.default);
             }
-            this.view.get(0).contentDocument.location.replace(query);
-            
-            var cd = this.view.get(0).contentDocument;
-            $(cd).ready(function(){
-                alert(cd.location.href);
+            var query = "http://webcache.googleusercontent.com/search?q=" + encodeURIComponent("cache:" + data['url']);
+            $.ajax(query, {
+                "context": this,
+                "success": this.replaceContent,
+                "dataType": "html"
             });
         }
     });
