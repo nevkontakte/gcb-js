@@ -172,6 +172,11 @@ var Gcb = (function(publish) {
                 doc.location.replace(this.default);
             }
             var query = "http://webcache.googleusercontent.com/search?q=" + encodeURIComponent("cache:" + data['url']);
+
+            if(data['url'].match(/^https?:\/\/webcache\.googleusercontent\.com/)) {
+                query = data['url'];
+            }
+
             $.ajax(query, {
                 "context": this,
                 "success": this.replaceContent,
