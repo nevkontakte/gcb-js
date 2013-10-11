@@ -9,7 +9,7 @@ var Gcb = (function(publish) {
          */
         'submit': function(el, event) {
             event.preventDefault();
-            can.route.attr('url', this.element.find('input[name=url]').val())
+            can.route.attr('url', this.element.find('input[name=url]').val());
         },
         'go/:url route': function(data) {
             this.element.find('input[name=url]').val(data['url'])
@@ -88,12 +88,24 @@ var Gcb = (function(publish) {
             this.navbar = options.navbar;
             this.default = window.location.href.split(location.hash||"#")[0];
 
+            this.foreignAlert = $('<div class="alert"><strong>Warning!</strong> You have leaved Google cache and currently viewing some other pages.</div>');
+            this.foreignAlert.hide();
+
             this.view = $('<iframe style="border: none" src="' + this.default + '">');
             this.view.css('background', '#FFF');
             this.view.css('width', '100%');
 
+            this.view.load($.proxy(function(){
+                try {
+                    this.view.contents();
+                    this.foreignAlert.is(':visible') && this.foreignAlert.slideUp({step: $.proxy(this.resize, this)});
+                } catch (e) {
+                    this.foreignAlert.is(':visible') || this.foreignAlert.slideDown({step: $.proxy(this.resize, this)});
+                }
+            }, this));
+
             this.card = $('<div class="card">');
-            this.element.append(this.card.append(this.view));
+            this.element.append(this.card.append(this.foreignAlert).append(this.view));
             this.element.addClass('container gcb-viewport');
         },
 
@@ -102,7 +114,7 @@ var Gcb = (function(publish) {
                 $(window).height()
                 - this.element.offset().top
                 - (this.card.outerHeight(true) - this.card.height())
-
+                - (this.foreignAlert.is(':visible') ? this.foreignAlert.outerHeight(true) : 0)
             );
         },
 
