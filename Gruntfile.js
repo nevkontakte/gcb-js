@@ -40,12 +40,23 @@ module.exports = function (grunt) {
                 src: ['<%= concat.main_css.dest %>'],
                 dest: 'assets/<%= pkg.name %>.min.css'
             }
+        },
+        watch: {
+            scripts: {
+                files: ['**/*.js', '**/.css'],
+                tasks: ['default'],
+                options: {
+                    spawn: false,
+                    interrupt: true
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task.
     grunt.registerTask('default', ['concat', 'uglify', 'cssmin']);
