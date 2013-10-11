@@ -70,8 +70,8 @@ var Gcb = (function(publish) {
                 </form>\
             <div class="nav-collapse collapse">\
                 <ul class="nav nav-pills pull-right">\
-                <li><a href="#!about"><i class="icon-info-sign"></i> About</a></li>\
-                <li><a href="#!contact"><i class="icon-envelope"></i> Contact</a></li>\
+                <li><a href="http://cache.nevkontakte.com/#!about"><i class="icon-info-sign"></i> About</a></li>\
+                <li><a href="http://cache.nevkontakte.com/#!contact"><i class="icon-envelope"></i> Contact</a></li>\
                 <li><a href="https://github.com/nevkontakte/gcb-js"><i class="icon-github"></i> GitHub</a></li>\
                 </ul>\
                 </div>\
@@ -160,7 +160,6 @@ var Gcb = (function(publish) {
 
             links.filter(":not(.--gcb-hooked-link)").on("click", function(){
                 can.route.attr('url', this.href);
-                console.log("Click", this.href);
                 return false;
             }).addClass("--gcb-hooked-link");
 
