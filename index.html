@@ -45,7 +45,7 @@
                     <ul class="nav nav-pills pull-right">
                         <li class="active"><a href="#!"><i class="icon-home"></i> Home</a></li>
                         <li><a href="#!about"><i class="icon-info-sign"></i> About</a></li>
-                        <li><a href="#!contact"><i class="icon-envelope"></i> Contact</a></li>
+                        <li><a href="#!contact" id="contact" data-contact-trigger><i class="icon-envelope"></i> Contact</a></li>
                         <li><a href="https://github.com/nevkontakte/gcb-js"><i class="icon-github"></i> GitHub</a></li>
                     </ul>
                 </div>
@@ -116,8 +116,10 @@
     $(function() {
         new Gcb.BackendManager();
         new Gcb.Form("#gcb-form");
-        new Gcb.Bookmarklet('.gcb-bookmarklet')
+        new Gcb.Bookmarklet('.gcb-bookmarklet');
+        new Gcb.UserVoice();
     });
+
 </script>
 </body>
 </html>

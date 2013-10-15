@@ -1,4 +1,4 @@
-var Gcb = (function(publish) {
+var Gcb = (function (publish) {
     "use strict";
 
     publish.Form = can.Control({
@@ -7,18 +7,18 @@ var Gcb = (function(publish) {
          * @param el HTMLObjectElement
          * @param event Event
          */
-        'submit': function(el, event) {
+        'submit': function (el, event) {
             event.preventDefault();
             can.route.attr('url', this.element.find('input[name=url]').val());
         },
-        'go/:url route': function(data) {
+        'go/:url route': function (data) {
             this.element.find('input[name=url]').val(data['url'])
         }
     });
 
     publish.BackendManager = can.Control({
         'defaults': {
-            'backend' : 'http://webcache.googleusercontent.com/search?q=cache%3Ahttp%3A%2F%2Fcache.nevkontakte.com%2Fproxy.html'
+            'backend': 'http://webcache.googleusercontent.com/search?q=cache%3Ahttp%3A%2F%2Fcache.nevkontakte.com%2Fproxy.html'
         }
     }, {
 
@@ -26,30 +26,72 @@ var Gcb = (function(publish) {
          * Redirect user to backend when URL is provided.
          * @param data Object
          */
-        'go/:url route': function(data) {
+        'go/:url route': function (data) {
             document.location.href = this.options.backend + can.route.url(data);
         }
     });
 
     publish.Bookmarklet = can.Control({
-        init: function() {
-            var bookmarklet = function() {
+        init: function () {
+            var bookmarklet = function () {
                 var loader = document.createElement("script");
                 loader.setAttribute("type", "text/javascript");
                 loader.setAttribute("src", "http://cache.nevkontakte.com/bookmarklet.js");
-                if(document.body != null) {
+                if (document.body != null) {
                     document.body.appendChild(loader);
                 } else {
                     document.appendChild(loader);
                 }
             };
 
-            this.element.attr("href","javascript:void("+encodeURIComponent(bookmarklet.toString())+"())");
+            this.element.attr("href", "javascript:void(" + encodeURIComponent(bookmarklet.toString()) + "())");
+        }
+    });
+
+    /**
+     * UserVoice.com widget controller.
+     * UserVoice Javascript SDK developer documentation:
+     * https://www.uservoice.com/o/javascript-sdk
+     * @type {Gcb.UserVoice}
+     */
+    publish.UserVoice = can.Control({
+        init: function () {
+            // Include the UserVoice JavaScript SDK (only needed once on a page)
+            (function () {
+                var uv = document.createElement('script');
+                uv.type = 'text/javascript';
+                uv.async = true;
+                uv.src = '//widget.uservoice.com/5qPiGp5jMVO57L4MPuGw.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(uv, s)
+            })();
+
+            var uv = window.UserVoice || [];
+            uv.push(['set', {
+                accent_color: '#448dd6',
+                trigger_color: 'white',
+                trigger_background_color: '#6aba2e',
+                mode: 'smartvote'
+            }]);
+
+            // Make it public back
+            window.UserVoice = uv;
+        },
+        'contact route': function () {
+            $('[data-contact-trigger]').each(function() {
+                window.UserVoice.push(['show', {target: this}]);
+            });
+        },
+        'route': function() {
+            window.UserVoice.push(['hide']);
+        },
+        ':whatever route': function() {
+            this.route();
         }
     });
 
     publish.Navbar = can.Control({
-        init: function(el) {
+        init: function (el) {
             el.attr('class', 'navbar navbar-static-top navbar-inverse');
             $('<!--suppress HtmlUnknownAnchorTarget --><div class="navbar-inner">\
                 <div class="container">\
@@ -71,7 +113,7 @@ var Gcb = (function(publish) {
             <div class="nav-collapse collapse">\
                 <ul class="nav nav-pills pull-right">\
                 <li><a href="http://cache.nevkontakte.com/#!about"><i class="icon-info-sign"></i> About</a></li>\
-                <li><a href="http://cache.nevkontakte.com/#!contact"><i class="icon-envelope"></i> Contact</a></li>\
+                <li><a href="http://cache.nevkontakte.com/#!contact" data-contact-trigger><i class="icon-envelope"></i> Contact</a></li>\
                 <li><a href="https://github.com/nevkontakte/gcb-js"><i class="icon-github"></i> GitHub</a></li>\
                 </ul>\
                 </div>\
@@ -81,12 +123,12 @@ var Gcb = (function(publish) {
     });
 
     publish.Viewport = can.Control({
-        init: function(el, options) {
+        init: function (el, options) {
             /**
              * @type {jQuery}
              */
             this.navbar = options.navbar;
-            this.default = window.location.href.split(location.hash||"#")[0];
+            this.default = window.location.href.split(location.hash || "#")[0];
 
             this.foreignAlert = $('<div class="alert"><strong>Warning!</strong> You have leaved Google cache and currently viewing some other pages.</div>');
             this.foreignAlert.hide();
@@ -95,7 +137,7 @@ var Gcb = (function(publish) {
             this.view.css('background', '#FFF');
             this.view.css('width', '100%');
 
-            this.view.load($.proxy(function(){
+            this.view.load($.proxy(function () {
                 try {
                     this.view.contents();
                     this.foreignAlert.is(':visible') && this.foreignAlert.slideUp({step: $.proxy(this.resize, this)});
@@ -109,12 +151,12 @@ var Gcb = (function(publish) {
             this.element.addClass('container gcb-viewport');
         },
 
-        'resize': function() {
+        'resize': function () {
             this.view.height(
                 $(window).height()
-                - this.element.offset().top
-                - (this.card.outerHeight(true) - this.card.height())
-                - (this.foreignAlert.is(':visible') ? this.foreignAlert.outerHeight(true) : 0)
+                    - this.element.offset().top
+                    - (this.card.outerHeight(true) - this.card.height())
+                    - (this.foreignAlert.is(':visible') ? this.foreignAlert.outerHeight(true) : 0)
             );
         },
 
@@ -122,16 +164,18 @@ var Gcb = (function(publish) {
          * AJAX callback. Replaces current viewport contents with new one passed in data.
          * @param data HTML string of new page.
          */
-        replaceContent: function(data) {
+        replaceContent: function (data) {
             var doc = this.view.get(0).contentDocument;
 
             // Workaround in case of accidental leaving Google cache context
             // To overcome same origin policy we need to reset iframe to about:blank
             // and retry accessing document.
             // TODO Test in other browsers
-            if(doc == null) {
+            if (doc == null) {
                 this.view.attr('src', 'about:blank');
-                setTimeout($.proxy(function(){this.replaceContent(data)}, this), 0);
+                setTimeout($.proxy(function () {
+                    this.replaceContent(data)
+                }, this), 0);
                 return;
             }
 
@@ -151,43 +195,43 @@ var Gcb = (function(publish) {
          * @param delay Delay in milliseconds for next check.
          * @param hookedLinks Number of links which were hooked already.
          */
-        watchLinks: function(delay, hookedLinks) {
+        watchLinks: function (delay, hookedLinks) {
             var doc = $(this.view.get(0).contentDocument);
 
             var links = doc.find('a');
 
             var linksLength = links.length;
 
-            links.filter(":not(.--gcb-hooked-link)").on("click", function(){
+            links.filter(":not(.--gcb-hooked-link)").on("click",function () {
                 can.route.attr('url', this.href);
                 return false;
             }).addClass("--gcb-hooked-link");
 
-            if(doc.readyState !== "complete") {
-                if(hookedLinks == linksLength) {
-                    delay = Math.min(delay*2, 300);
+            if (doc.readyState !== "complete") {
+                if (hookedLinks == linksLength) {
+                    delay = Math.min(delay * 2, 300);
                 } else {
                     delay = 1;
                 }
 
-                setTimeout($.proxy(function(){
+                setTimeout($.proxy(function () {
                     this.watchLinks(delay, linksLength);
                 }, this), delay);
             }
         },
 
-        '{window} resize': function() {
+        '{window} resize': function () {
             this.resize();
         },
 
-        'go/:url route': function(data) {
+        'go/:url route': function (data) {
             var doc = this.view.get(0).contentDocument;
-            if(data['url'] == "") {
+            if (data['url'] == "") {
                 doc.location.replace(this.default);
             }
             var query = "http://webcache.googleusercontent.com/search?q=" + encodeURIComponent("cache:" + data['url']);
 
-            if(data['url'].match(/^https?:\/\/webcache\.googleusercontent\.com/)) {
+            if (data['url'].match(/^https?:\/\/webcache\.googleusercontent\.com/)) {
                 query = data['url'];
             }
 
@@ -200,16 +244,16 @@ var Gcb = (function(publish) {
     });
 
     publish.Navigator = can.Control({
-        init: function(el) {
+        init: function (el) {
             $('#greetings').remove();
             $('body *').hide();
 
             var meta = [
-                {'name':'viewport', 'content':'width=device-width, initial-scale=1.0'}
+                {'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0'}
             ];
 
             var head = $('head');
-            for(var i = 0; i < meta.length; i++) {
+            for (var i = 0; i < meta.length; i++) {
                 var tag = $('<meta>');
                 tag.attr(meta[i]);
                 head.append(tag);
