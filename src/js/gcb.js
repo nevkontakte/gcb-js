@@ -9,7 +9,7 @@ var Gcb = (function (publish) {
          */
         'submit': function (el, event) {
             event.preventDefault();
-            can.route.attr('url', this.element.find('input[name=url]').val());
+            window.location.hash = can.route.param({'url': this.element.find('input[name=url]').val()});
         },
         'go/:url route': function (data) {
             this.element.find('input[name=url]').val(data['url'])
