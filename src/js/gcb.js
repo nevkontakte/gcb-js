@@ -77,16 +77,23 @@ var Gcb = (function (publish) {
             // Make it public back
             window.UserVoice = uv;
         },
-        'contact route': function () {
+        showPopup: function() {
             $('[data-contact-trigger]').each(function() {
                 window.UserVoice.push(['show', {target: this}]);
             });
         },
-        'route': function() {
+        hidePopup: function() {
             window.UserVoice.push(['hide']);
         },
-        ':whatever route': function() {
-            this.route();
+        'route': function() {
+            this.hidePopup();
+        },
+        ':page route': function(data) {
+            if (data['page'] == 'contact') {
+                this.showPopup();
+            } else {
+                this.hidePopup();
+            }
         }
     });
 
@@ -119,6 +126,26 @@ var Gcb = (function (publish) {
                 </div>\
             </div>').appendTo(el);
             new publish.Form($('.gcb-form', el));
+        }
+    });
+
+    /**
+     * Helper controller which maintains appropriate "active" status of navigation menu.
+     * @type {Gcb.Nav}
+     */
+    publish.Nav = can.Control({
+        init: function(el) {
+            this.entries = $('.nav li', el);
+        },
+        updateClass: function(page) {
+            this.entries.removeClass('active');
+            this.entries.filter('li:has(a[href$="#!' + page + '"])').addClass('active');
+        },
+        ':page route': function(data) {
+            this.updateClass(data['page'])
+        },
+        'route': function() {
+            this.updateClass('');
         }
     });
 
