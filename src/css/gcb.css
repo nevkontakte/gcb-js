@@ -21,3 +21,12 @@ h1.gcb-logo small{
 .gcb-logo .green { color: #00AF31; }
 .gcb-logo .blue { color: #325ae8; }
 .gcb-logo .darkblue { color: #2b4ec9; }
+
+.modal-backdrop {
+    background-color: #444444;
+}
+
+.modal {
+    width: 70%;
+    margin-left: -35%;
+}

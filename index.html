@@ -46,6 +46,7 @@
                     <ul class="nav nav-pills pull-right">
                         <li class="active"><a href="#!"><i class="icon-home"></i> Home</a></li>
                         <li><a href="#!about"><i class="icon-info-sign"></i> About</a></li>
+                        <li><a href="#!faq" id="faq"><i class="icon-question-sign"></i> F.A.Q.</a></li>
                         <li><a href="#!contact" id="contact" data-contact-trigger><i class="icon-envelope"></i> Contact</a></li>
                         <li><a href="https://github.com/nevkontakte/gcb-js"><i class="icon-github"></i> GitHub</a></li>
                     </ul>
@@ -109,6 +110,47 @@
 
 </div> <!-- /container -->
 
+<div id="aboutModal" class="modal fade hide" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="aboutModalLabel">About Google Cache Browser 3.0</h3>
+    </div>
+    <div class="modal-body">
+        <p>GCB is an open-source project aimed to help navigating Google cache.</p>
+        <p>Almost everyone faces need to view a site, which is currently down, or a web page, which was removed. Google does a great job indexing the Web and keeping indexed pages in publicly available cache. So, when the need comes, most of us go to Google, search for needed page and open it's saved version.</p>
+        <p>GCB is just about simplifying these steps for everyone. Have you ever clicked any link on cached web page? Probably yes, and it took you back to the original web site. So if you wanted to get that page again from the cache, you had to do all the steps on and on. GCB solved that for you: it hooks into a cached page, intercepts all clicks on links outside the cache and directs them back. We also provide a convenient bookmarklet to open cached version in GCB in a single click.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">OK</button>
+    </div>
+</div>
+
+<div id="faqModal" class="modal fade hide" tabindex="-1" role="dialog" aria-labelledby="faqModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="faqModalLabel">F.A.Q.</h3>
+    </div>
+    <div class="modal-body">
+        <ol>
+            <li>
+                <h4>How does it work? Doesn't it violate Google policy?</h4>
+                <p>GCB runs completely in your browser. For Google it looks almost the same as if you view the cache in a regular way.</p>
+            </li>
+            <li>
+                <h4>Doesn't it pose any security issues for me?</h4>
+                <p>Definitely no. Since we use pure JavaScript, your browser does security protection for you. GCB run in Google cache context and can access only cached data from Google. There is no way for GCB to get your session data or cookies from original sites or your Google account, since the cache is hosted on separate domain.</p>
+            </li>
+            <li>
+                <h4>How can I help?</h4>
+                <p>GCB heavily relies on "backend" pages, which must exist in Google Cache. This pages are essential to gain access to cached pages, but there is always a risk, that such page might be removed from Google index. If you have a site, you might host such page for us to make GCB more reliable. We will post additional information with instructions soon.</p>
+            </li>
+        </ol>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">OK</button>
+    </div>
+</div>
+
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -120,6 +162,8 @@
         new Gcb.Bookmarklet('.gcb-bookmarklet');
         new Gcb.Nav('.navbar');
         new Gcb.UserVoice();
+        new Gcb.Modal('#aboutModal', {page:'about'});
+        new Gcb.Modal('#faqModal', {page:'faq'});
     });
 
 </script>

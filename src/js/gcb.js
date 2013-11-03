@@ -77,22 +77,50 @@ var Gcb = (function (publish) {
             // Make it public back
             window.UserVoice = uv;
         },
-        showPopup: function() {
+        showModal: function() {
             $('[data-contact-trigger]').each(function() {
                 window.UserVoice.push(['show', {target: this}]);
             });
         },
-        hidePopup: function() {
+        hideModal: function() {
             window.UserVoice.push(['hide']);
         },
         'route': function() {
-            this.hidePopup();
+            this.hideModal();
         },
         ':page route': function(data) {
             if (data['page'] == 'contact') {
-                this.showPopup();
+                this.showModal();
             } else {
-                this.hidePopup();
+                this.hideModal();
+            }
+        }
+    });
+
+    publish.Modal = can.Control({
+        defaults: {
+            page: null,
+            backdrop: 'static',
+            show: false
+        }
+    }, {
+        init: function(el) {
+            el.modal(this.options);
+        },
+        showModal: function() {
+            this.element.modal('show');
+        },
+        hideModal: function() {
+            this.element.modal('hide');
+        },
+        'route': function() {
+            this.hideModal();
+        },
+        ':page route': function(data) {
+            if (data['page'] === this.options.page) {
+                this.showModal();
+            } else {
+                this.hideModal();
             }
         }
     });
@@ -120,6 +148,7 @@ var Gcb = (function (publish) {
             <div class="nav-collapse collapse">\
                 <ul class="nav nav-pills pull-right">\
                 <li><a href="http://cache.nevkontakte.com/#!about"><i class="icon-info-sign"></i> About</a></li>\
+                <li><a href="http://cache.nevkontakte.com/#!faq"><i class="icon-question-sign"></i> F.A.Q.</a></li>\
                 <li><a href="http://cache.nevkontakte.com/#!contact" data-contact-trigger><i class="icon-envelope"></i> Contact</a></li>\
                 <li><a href="https://github.com/nevkontakte/gcb-js"><i class="icon-github"></i> GitHub</a></li>\
                 </ul>\
