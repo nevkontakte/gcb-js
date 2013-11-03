@@ -18,7 +18,9 @@ var Gcb = (function (publish) {
 
     publish.BackendManager = can.Control({
         'defaults': {
-            'backend': 'http://webcache.googleusercontent.com/search?q=cache%3Ahttp%3A%2F%2Fcache.nevkontakte.com%2Fproxy.html'
+            'backend': [
+                'http://webcache.googleusercontent.com/search?q=cache%3Ahttp%3A%2F%2Fcache.nevkontakte.com%2Fproxy.html'
+            ]
         }
     }, {
 
@@ -27,7 +29,8 @@ var Gcb = (function (publish) {
          * @param data Object
          */
         'go/:url route': function (data) {
-            document.location.href = this.options.backend + can.route.url(data);
+            var backend = this.options.backend[Math.floor(Math.random()*this.options.backend.length)];
+            document.location.href = backend + can.route.url(data);
         }
     });
 
