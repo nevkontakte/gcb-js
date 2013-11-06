@@ -1,7 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Lora|Droid+Sans&text=Google+cache+browser);
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700);
 @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-@import url(assets/gcb-js.min.css);
+/*noinspection CssUnknownTarget*/
+@import url(assets/gcb-js.css);
 
 
 body {
