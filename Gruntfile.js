@@ -11,40 +11,70 @@ module.exports = function (grunt) {
                 '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
                 ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
         },
+        sources: {
+            'main_js': [
+                '<banner:meta.banner>',
+                'src/js/jquery.js',
+                'src/js/can.*.js',
+                'src/js/bootstrap.js',
+                'src/js/gcb.js',
+                'src/js/backends.js'
+            ],
+            'gcache_js': [
+                '<banner:meta.banner>',
+                'src/js/jquery.js',
+                'src/js/can.*.js',
+                'src/js/bootstrap.js',
+                'src/js/gcb*.js'
+            ],
+            'main_css': [
+                'src/css/bootplus.css',
+                'src/css/bootplus-responsive.css',
+                'src/css/gcb.css'
+            ]
+        },
         concat: {
             main_js: {
-                src: ['<banner:meta.banner>', 'src/js/jquery.js', 'src/js/can.*.js', 'src/js/bootstrap.js', 'src/js/gcb.js'],
+                src: '<%= sources.main_js %>',
                 dest : 'assets/<%= pkg.name %>.js'
             },
             gcache_js: {
-                src: ['<banner:meta.banner>', 'src/js/jquery.js', 'src/js/can.*.js', 'src/js/bootstrap.js', 'src/js/gcb*.js'],
-                dest : 'assets/gcb-browser.js'
+                src: '<%= sources.gcache_js %>',
+                dest : 'gcache.js'
             },
             main_css: {
-                src: ['src/css/bootplus.css', 'src/css/bootplus-responsive.css', 'src/css/gcb.css'],
+                src: '<%= sources.main_css %>',
                 dest : 'assets/<%= pkg.name %>.css'
             }
         },
-        uglify: {
+        jsmin: {
             main_js: {
-                src: ['<%= concat.main_js.dest %>'],
-                dest: 'assets/<%= pkg.name %>.min.js'
+                src: '<%= sources.main_js %>',
+                dest: 'assets/<%= pkg.name %>.js',
+                destMap: 'assets/<%= pkg.name %>.map.js',
+                srcRoot: '../'
             },
             gcache_js: {
-                src: ['<%= concat.gcache_js.dest %>'],
-                dest: 'gcache.js'
+                src: '<%= sources.gcache_js %>',
+                dest: 'gcache.js',
+                destMap: 'assets/gcache.map.js',
+                srcRoot: '../'
             }
+        },
+        'jsmin-sourcemap': { // We need this hack to be able to refer properties from templates
+            main_js: '<%= jsmin.main_js %>',
+            gcache_js: '<%= jsmin.gcache_js %>'
         },
         cssmin: {
             main_css: {
-                src: ['<%= concat.main_css.dest %>'],
-                dest: 'assets/<%= pkg.name %>.min.css'
+                src: '<%= sources.main_css %>',
+                dest: 'assets/<%= pkg.name %>.css'
             }
         },
         watch: {
             scripts: {
-                files: ['**/*.js', '**/.css'],
-                tasks: ['default'],
+                files: ['**/*.js', '**/*.css'],
+                tasks: ['debug'],
                 options: {
                     spawn: false,
                     interrupt: true
@@ -53,12 +83,13 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-jsmin-sourcemap');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task.
-    grunt.registerTask('default', ['concat', 'uglify', 'cssmin']);
+    grunt.registerTask('debug', ['concat']);
+    grunt.registerTask('production', ['jsmin-sourcemap', 'cssmin']);
 
 };
