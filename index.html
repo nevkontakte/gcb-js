@@ -157,7 +157,7 @@
 <script type="text/javascript" src="assets/gcb-js.min.js"></script>
 <script type="text/javascript">
     $(function() {
-        new Gcb.BackendManager();
+        new Gcb.BackendManager(null, {backend: window.Gcb.backends || []});
         new Gcb.Form("#gcb-form");
         new Gcb.Bookmarklet('.gcb-bookmarklet');
         new Gcb.Nav('.navbar');
