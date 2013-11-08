@@ -3,7 +3,7 @@
   "name": "gcb-js",
   "description": "Google Cache Browser (client-side implementation)",
   "version": "3.0.0",
-  "homepage": "http://cache.nevkontakte.com/",
+  "homepage": "https://github.com/nevkontakte/gcb-js/",
   "repository": {
     "type": "git",
     "url": "git://github.com/nevkontakte/gcb-js.git"
