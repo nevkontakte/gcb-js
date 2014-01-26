@@ -189,12 +189,12 @@ var Gcb = (function (publish) {
              * @type {jQuery}
              */
             this.navbar = options.navbar;
-            this.default = window.location.href.split(location.hash || "#")[0];
+            this.initial = window.location.href.split(location.hash || "#")[0];
 
             this.foreignAlert = $('<div class="alert"><strong>Warning!</strong> You have leaved Google cache and currently viewing some other pages.</div>');
             this.foreignAlert.hide();
 
-            this.view = $('<iframe style="border: none" src="' + this.default + '">');
+            this.view = $('<iframe style="border: none" src="' + this.initial + '">');
             this.view.css('background', '#FFF');
             this.view.css('width', '100%');
 
@@ -288,7 +288,7 @@ var Gcb = (function (publish) {
         'go/:url route': function (data) {
             var doc = this.view.get(0).contentDocument;
             if (data['url'] == "") {
-                doc.location.replace(this.default);
+                doc.location.replace(this.initial);
             }
             var query = "http://webcache.googleusercontent.com/search?q=" + encodeURIComponent("cache:" + data['url']);
 
