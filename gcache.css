@@ -5,11 +5,6 @@
 @import url(assets/gcb-js.css);
 
 
-body {
-	font-family: sans-serif;
-    font-size: 12pt;
-}
-
 .overlay {
     position: absolute;
     top: 0;
