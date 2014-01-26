@@ -16,7 +16,8 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-cssmin": "~0.6.2",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-jsmin-sourcemap": "~1.8.0"
+    "grunt-jsmin-sourcemap": "~1.8.0",
+    "grunt-concat-sourcemap": "~0.4.0"
   },
   "optionalDependencies": {},
   "engines": {

@@ -33,7 +33,10 @@ module.exports = function (grunt) {
                 'src/css/gcb.css'
             ]
         },
-        concat: {
+        concat_sourcemap: {
+            options: {
+                sourceRoot: '../'
+            },
             main_js: {
                 src: '<%= sources.main_js %>',
                 dest : 'assets/<%= pkg.name %>.js'
@@ -41,7 +44,9 @@ module.exports = function (grunt) {
             gcache_js: {
                 src: '<%= sources.gcache_js %>',
                 dest : 'gcache.js'
-            },
+            }
+        },
+        concat: {
             main_css: {
                 src: '<%= sources.main_css %>',
                 dest : 'assets/<%= pkg.name %>.css'
@@ -84,12 +89,13 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-jsmin-sourcemap');
+    grunt.loadNpmTasks('grunt-concat-sourcemap');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task.
-    grunt.registerTask('debug', ['concat']);
+    grunt.registerTask('debug', ['concat_sourcemap', 'concat']);
     grunt.registerTask('production', ['jsmin-sourcemap', 'cssmin']);
 
 };
