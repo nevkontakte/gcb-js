@@ -144,7 +144,7 @@ var Gcb = (function (publish) {
                 <a class="brand" href="http://cache.nevkontakte.com/">Google Cache Browser</a>\
                 <form class="gcb-form navbar-search pull-left">\
                     <div class="input-append">\
-                    <input type="text" class="span5" placeholder="Enter web page URL" name="url">\
+                    <input type="text" class="span4" placeholder="Enter web page URL" name="url">\
                     <button type="submit" class="btn">\
                     <i class="icon-long-arrow-right"></i>\
                     </button>\
