@@ -30,7 +30,9 @@ var Gcb = (function (publish) {
          */
         'go/:url route': function (data) {
             var backend = this.options.backend[Math.floor(Math.random()*this.options.backend.length)];
-            document.location.href = backend + can.route.url(data);
+            setTimeout(function () { // Trick to prevent "Request cancelled" problem in Chrome.
+                window.location.href = backend + can.route.url(data);
+            }, 0)
         }
     });
 
