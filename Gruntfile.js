@@ -5,7 +5,8 @@ module.exports = function (grunt) {
     var gh_options = {
         user: 'Antisocial Bot',
         email: 'bot@cache.nevkontakte.com',
-        push: process.env.TRAVIS_PULL_REQUEST != false
+        push: process.env.TRAVIS_PULL_REQUEST != false,
+        repo: 'git@github.com:nevkontakte/gcb-js.git'
     };
 
     if (process.env.TRAVIS_BUILD_NUMBER && process.env.TRAVIS_COMMIT_RANGE) {
