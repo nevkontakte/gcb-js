@@ -30,7 +30,8 @@ module.exports = function (grunt) {
                 'src/js/can.*.js',
                 'src/js/bootstrap.js',
                 'src/js/gcb.js',
-                'src/js/backends.js'
+                'src/js/backends.js',
+                'src/js/metrika.js'
             ],
             'gcache_js': [
                 '<banner:meta.banner>',
@@ -38,7 +39,8 @@ module.exports = function (grunt) {
                 'src/js/jquery.js',
                 'src/js/can.*.js',
                 'src/js/bootstrap.js',
-                'src/js/gcb*.js'
+                'src/js/gcb*.js',
+                'src/js/metrika.js'
             ],
             'main_css': [
                 'src/css/bootplus.css',
