@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownAnchorTarget -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Google Cache Browser 3.0</title>
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="assets/gcb-js.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">-->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">-->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">-->
+    <!--<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <!--<link rel="shortcut icon" href="../assets/ico/favicon.png">-->
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <a class="brand" href="">Google Cache Browser</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav nav-pills pull-right">
+                        <li class="active"><a href="#!"><i class="icon-home"></i> Home</a></li>
+                        <li><a href="#!about"><i class="icon-info-sign"></i> About</a></li>
+                        <li><a href="#!faq" id="faq"><i class="icon-question-sign"></i> F.A.Q.</a></li>
+                        <li><a href="#!contact" id="contact" data-contact-trigger><i class="icon-envelope"></i> Contact</a></li>
+                        <li><a href="https://github.com/nevkontakte/gcb-js"><i class="icon-github"></i> GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <div class="row">
+        <div class="span2">
+
+        </div>
+        <div class="span8 text-center">
+            <h1 class="gcb-logo">
+                <span class='blue'>G</span><span class='red'>o</span><span class='yellow'>o</span><span class='blue'>g</span><span class='green'>l</span><span class='red'>e</span> <br>
+                <small>Cache Browser <sup>3.0</sup></small>
+            </h1>
+
+            <form id="gcb-form" class="form-search">
+                <div class="input-append">
+                    <input type="text" class="span7" placeholder="Enter web page URL" name="url">
+                    <button type="submit" class="btn">
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="span2 text-center">
+            <p><a class="btn btn-success btn-block gcb-bookmarklet" href="#">Google&nbsp;Cache</a></p>
+            <p><span class="icon-long-arrow-up"></span> Activate GCB in a single click. Just add this link to bookmarks toolbar.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="offset2 span8">
+            <p class="lead text-center">
+                Google Cache Browser 3.0 is and open-source application, <br/>
+                licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> International License. <br/>
+                Feel free to contribute to it on <a href="https://github.com/nevkontakte/gcb-js">GitHub</a>.
+            </p>
+            <p class="text-center muted">
+                Google Cache Browser is not affiliated with Google, Inc in any kind. Responsibility on displayed cache contents is completely on Google and Google Cache Browser service is provided "AS IS".
+            </p>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <div class="row">
+        <div class="offset8 span4">
+            <p>
+                <!-- Please, keep this copyright if you set up you copy/fork of GCB. Feel free to add your own copyright above. -->
+                &copy; <a href="http://nevkontakte.com">nevkontakte.com</a>,
+                <script type="text/javascript">document.write(new Date().getFullYear().toString())</script>.
+            </p>
+            <p><!--eomy--></p>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+<div id="aboutModal" class="modal fade hide" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="aboutModalLabel">About Google Cache Browser 3.0</h3>
+    </div>
+    <div class="modal-body">
+        <p>GCB is an open-source project aimed to help navigating Google cache.</p>
+        <p>Almost everyone faces need to view a site, which is currently down, or a web page, which was removed. Google does a great job indexing the Web and keeping indexed pages in publicly available cache. So, when the need comes, most of us go to Google, search for needed page and open it's saved version.</p>
+        <p>GCB is just about simplifying these steps for everyone. Have you ever clicked any link on cached web page? Probably yes, and it took you back to the original web site. So if you wanted to get that page again from the cache, you had to do all the steps on and on. GCB solved that for you: it hooks into a cached page, intercepts all clicks on links outside the cache and directs them back. We also provide a convenient bookmarklet to open cached version in GCB in a single click.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">OK</button>
+    </div>
+</div>
+
+<div id="faqModal" class="modal fade hide" tabindex="-1" role="dialog" aria-labelledby="faqModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="faqModalLabel">F.A.Q.</h3>
+    </div>
+    <div class="modal-body">
+        <ol>
+            <li>
+                <h4>How does it work? Doesn't it violate Google policy?</h4>
+                <p>GCB runs completely in your browser. For Google it looks almost the same as if you view the cache in a regular way.</p>
+            </li>
+            <li>
+                <h4>Doesn't it pose any security issues for me?</h4>
+                <p>Definitely no. Since we use pure JavaScript, your browser does security protection for you. GCB run in Google cache context and can access only cached data from Google. There is no way for GCB to get your session data or cookies from original sites or your Google account, since the cache is hosted on separate domain.</p>
+            </li>
+            <li>
+                <h4>How can I help?</h4>
+                <p>GCB heavily relies on "backend" pages, which must exist in Google Cache. This pages are essential to gain access to cached pages, but there is always a risk, that such page might be removed from Google index. If you have a site, you might host such page for us to make GCB more reliable. We will post additional information with instructions soon.</p>
+            </li>
+        </ol>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">OK</button>
+    </div>
+</div>
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="assets/gcb-js.js"></script>
+<script type="text/javascript">
+    $(function() {
+        new Gcb.BackendManager(null, {backend: window.Gcb.backends || []});
+        new Gcb.Form("#gcb-form");
+        new Gcb.Bookmarklet('.gcb-bookmarklet');
+        new Gcb.Nav('.navbar');
+        new Gcb.UserVoice();
+        new Gcb.Modal('#aboutModal', {page:'about'});
+        new Gcb.Modal('#faqModal', {page:'faq'});
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+@import url(http://fonts.googleapis.com/css?family=Lora|Droid+Sans&text=Google+cache+browser);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+/*noinspection CssUnknownTarget*/
+@import url(assets/gcb-js.css);
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(images/overlay.png);
+}
+
+.overlay.load img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -9px 0 0 -110px;
+}
