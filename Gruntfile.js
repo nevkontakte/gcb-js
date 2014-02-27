@@ -2,6 +2,16 @@
 module.exports = function (grunt) {
 
     // Project configuration.
+    var gh_options = {
+        user: 'Antisocial Bot',
+        email: 'bot@cache.nevkontakte.com',
+        push: process.env.TRAVIS_PULL_REQUEST != false
+    };
+
+    if (process.env.TRAVIS_BUILD_NUMBER && process.env.TRAVIS_COMMIT_RANGE) {
+        gh_options['message'] = 'Deploying commits ' + process.env.TRAVIS_COMMIT_RANGE + ' by Travis. Build ' + process.env.TRAVIS_BUILD_NUMBER + '.';
+    }
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         meta: {
@@ -85,6 +95,18 @@ module.exports = function (grunt) {
                     interrupt: true
                 }
             }
+        },
+        'gh-pages': {
+            options: gh_options,
+            src: [
+                'index.html',
+                'proxy.html',
+                'gcache.css',
+                'gcache.js',
+                'bookmarklet.js',
+                'assets/*.js',
+                'assets/*.css'
+            ]
         }
     });
 
@@ -92,9 +114,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-concat-sourcemap');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-gh-pages');
 
     // Default task.
     grunt.registerTask('debug', ['concat_sourcemap']);
     grunt.registerTask('production', ['jsmin-sourcemap', 'cssmin']);
+    grunt.registerTask('deploy', ['production', 'gh-pages']);
 
 };

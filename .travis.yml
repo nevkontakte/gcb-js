@@ -1,3 +1,11 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
+branches:
+  except:
+  - gh-pages
+after_success:
+  - ssh-agent bash -c 'SSH_ASKPASS="./deploy/askpass.sh" ssh-add deploy/gcb_id; grunt deploy' < /dev/null
+env:
+  global:
+    secure: UxvakItpgar8CElgZ8CFlMlyyirVb2SAuHwo6yNJRCzpsjUJD98zAdQjk/f9j0MhM7eRcnapOlIqBB3arjgBy9mpOA1OMHDYLlibWQ77IhQnOIRP23tWtlAMfOWucnJ77lD0YwtSvVPkXYyD73jQ5u8QqGvm5XmfUc7vPEiOwYI=
