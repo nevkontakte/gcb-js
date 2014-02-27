@@ -18,7 +18,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-jsmin-sourcemap": "~1.8.0",
     "grunt-concat-sourcemap": "~0.4.0",
-    "grunt-gh-pages": "~0.9.1"
+    "grunt-gh-pages": "~0.9.1",
+    "grunt-cli": "~0.1.13"
   },
   "optionalDependencies": {},
   "engines": {
