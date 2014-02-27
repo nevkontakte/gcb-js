@@ -106,7 +106,8 @@ module.exports = function (grunt) {
                 'gcache.js',
                 'bookmarklet.js',
                 'assets/*.js',
-                'assets/*.css'
+                'assets/*.css',
+                'CNAME'
             ]
         }
     });
