@@ -7,7 +7,10 @@ branches:
 after_success:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - chmod 600 ./deploy/gcb_id
-  - ssh-agent bash -c 'DISPLAY=:0 SSH_ASKPASS="./deploy/askpass.sh" ssh-add deploy/gcb_id < /dev/null; grunt deploy'
+  - env
+  - ssh-agent
+  - DISPLAY=:0 SSH_ASKPASS="./deploy/askpass.sh" ssh-add deploy/gcb_id < /dev/null
+  - grunt deploy
 env:
   global:
     secure: UxvakItpgar8CElgZ8CFlMlyyirVb2SAuHwo6yNJRCzpsjUJD98zAdQjk/f9j0MhM7eRcnapOlIqBB3arjgBy9mpOA1OMHDYLlibWQ77IhQnOIRP23tWtlAMfOWucnJ77lD0YwtSvVPkXYyD73jQ5u8QqGvm5XmfUc7vPEiOwYI=
