@@ -5,6 +5,8 @@ branches:
   except:
   - gh-pages
 after_success:
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - chmod 600 ./deploy/gcb_id
   - ssh-agent bash -c 'SSH_ASKPASS="./deploy/askpass.sh" ssh-add deploy/gcb_id; grunt deploy' < /dev/null
 env:
   global:
