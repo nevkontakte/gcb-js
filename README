@@ -1,4 +1,7 @@
-# Google Cache Browser 3.0
+Google Cache Browser 3.0
+========================
+
+[![Build Status](https://travis-ci.org/nevkontakte/gcb-js.png?branch=master)](https://travis-ci.org/nevkontakte/gcb-js)
 
 GCB is an open-source project aimed to help navigating Google cache.
 
