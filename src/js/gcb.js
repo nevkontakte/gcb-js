@@ -250,38 +250,19 @@ var Gcb = (function (publish) {
             $(doc).find('div:first').css('margin', '0').css('padding', '0');
 
             if (watch !== false) {
-                this.watchLinks(1, 0);
+                this.watchLinks();
             }
         },
 
         /**
          * Watch for content loading process and put GCB hook on all links which appear on the page.
-         * @param delay Delay in milliseconds for next check.
-         * @param hookedLinks Number of links which were hooked already.
          */
-        watchLinks: function (delay, hookedLinks) {
+        watchLinks: function () {
             var doc = $(this.view.get(0).contentDocument);
-
-            var links = doc.find('a');
-
-            var linksLength = links.length;
-
-            links.filter(":not(.--gcb-hooked-link)").on("click",function () {
+            doc.find('body').on('click', 'a', function () {
                 can.route.attr('url', this.href);
                 return false;
-            }).addClass("--gcb-hooked-link");
-
-            if (doc.readyState !== "complete") {
-                if (hookedLinks == linksLength) {
-                    delay = Math.min(delay * 2, 300);
-                } else {
-                    delay = 1;
-                }
-
-                setTimeout($.proxy(function () {
-                    this.watchLinks(delay, linksLength);
-                }, this), delay);
-            }
+            });
         },
 
         errorPage: function(content) {
