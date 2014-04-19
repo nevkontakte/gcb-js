@@ -224,8 +224,9 @@ var Gcb = (function (publish) {
         /**
          * AJAX callback. Replaces current viewport contents with new one passed in data.
          * @param data HTML string of new page.
+         * @param watch Set to false to disable witching links.
          */
-        replaceContent: function (data) {
+        replaceContent: function (data, watch) {
             var doc = this.view.get(0).contentDocument;
 
             // Workaround in case of accidental leaving Google cache context
@@ -248,7 +249,9 @@ var Gcb = (function (publish) {
             // Workaround: prevent horizontal scrollbar in iframe cased by Google cache banner.
             $(doc).find('div:first').css('margin', '0').css('padding', '0');
 
-            this.watchLinks(1, 0);
+            if (watch !== false) {
+                this.watchLinks(1, 0);
+            }
         },
 
         /**
@@ -281,6 +284,61 @@ var Gcb = (function (publish) {
             }
         },
 
+        errorPage: function(content) {
+            return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' +
+                '<link href="http://cache.nevkontakte.com/assets/gcb-js.css" rel="stylesheet" type="text/css">' +
+                '</head><body class="viewport">' +
+                content +
+                '</body></html>'
+        },
+
+        errorNotFound: function(url) {
+            return this.errorPage(
+                '<div class="hero-unit error">' +
+                '<h1>Page is not cached <small>404 :-(</small></h1>' +
+                '<p>No cached copy of page <a href="' + url + '" target="_blank">' + url + '</a> was found in Google\'s cache. You may try to open it directly to view recent version of the page.</p>' +
+                '</div>'
+            );
+        },
+
+        errorUnknown: function(url, error) {
+            var report = {
+                'url': url,
+                'location': {
+                    'href': document.location.href,
+                    'hash': document.location.hash
+                },
+                'userAgent': window.navigator.userAgent,
+                'readyState': error.readyState,
+//                'responseText': error.responseText,
+                'status': error.status,
+                'statusText': error.statusText
+            };
+
+            report = LZString.compressToBase64(report.toSource());
+
+            report = [].concat.apply([],
+                report.split('').map(function(x,i){ return i%80 ? [] : report.slice(i,i+80) })
+            ).join('\n');
+
+            return this.errorPage(
+                '<div class="hero-unit error">' +
+                '<h1>Ooops, that\'s embarrassing <small>:-[</small></h1>' +
+                '<p>Google Cache Browser failed to load cached version of page you requested. You may try to <a href="https://google.com/search?q=cache:' + encodeURIComponent(url) + '" target="_blank">open</a> it directly from Google\'s cache.</p>' +
+                    '<p>Please, take a minute to submit us feedback to let us investigate the case quoting following code in your report: </p>' +
+                    '<textarea class="input-block-level" rows="7"> ' + report + '</textarea>' +
+                '</div>'
+            );
+        },
+
+        loadError: function(url, error) {
+            if (error.status === 404) {
+                this.replaceContent(this.errorNotFound(url), false);
+            } else {
+                this.replaceContent(this.errorUnknown(url, error), false)
+            }
+        },
+
         '{window} resize': function () {
             this.resize();
         },
@@ -299,6 +357,7 @@ var Gcb = (function (publish) {
             $.ajax(query, {
                 "context": this,
                 "success": this.replaceContent,
+                "error": function(error) {this.loadError(data['url'], error)},
                 "dataType": "html"
             });
         }

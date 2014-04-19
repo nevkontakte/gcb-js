@@ -1,5 +1,5 @@
-body {
-    /*background-color: #FFF;*/
+.viewport {
+    background-color: #ffffff;
 }
 
 .navbar .btn-navbar {
@@ -29,4 +29,12 @@ h1.gcb-logo small{
 .modal {
     width: 70%;
     margin-left: -35%;
+}
+
+.hero-unit.error h1 {
+    text-align: center;
+}
+
+.hero-unit.error {
+    padding: 2em !important;
 }

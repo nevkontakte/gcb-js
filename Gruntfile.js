@@ -29,6 +29,7 @@ module.exports = function (grunt) {
                 'src/js/jquery.js',
                 'src/js/can.*.js',
                 'src/js/bootstrap.js',
+                'src/js/lz-string.js',
                 'src/js/gcb.js',
                 'src/js/backends.js',
                 'src/js/metrika.js'
@@ -39,6 +40,7 @@ module.exports = function (grunt) {
                 'src/js/jquery.js',
                 'src/js/can.*.js',
                 'src/js/bootstrap.js',
+                'src/js/lz-string.js',
                 'src/js/gcb*.js',
                 'src/js/metrika.js'
             ],
