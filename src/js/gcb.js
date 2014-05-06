@@ -31,7 +31,7 @@ var Gcb = (function (publish) {
         'go/:url route': function (data) {
             var backend = this.options.backend[Math.floor(Math.random()*this.options.backend.length)];
             setTimeout(function () { // Trick to prevent "Request cancelled" problem in Chrome.
-                window.location.href = backend + can.route.url(data);
+                window.location.replace(backend + can.route.url(data));
             }, 1)
         }
     });
@@ -133,7 +133,7 @@ var Gcb = (function (publish) {
     publish.Navbar = can.Control({
         init: function (el) {
             el.attr('class', 'navbar navbar-static-top navbar-inverse');
-            $('<!--suppress HtmlUnknownAnchorTarget --><div class="navbar-inner">\
+            $('<div class="navbar-inner">\
                 <div class="container">\
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\
                 <span class="icon-bar"></span>\
