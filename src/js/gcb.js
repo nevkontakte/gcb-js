@@ -242,9 +242,7 @@ var Gcb = (function (publish) {
             }
 
 
-            doc.open();
             doc.write(data);
-            doc.close();
 
             // Workaround: prevent horizontal scrollbar in iframe cased by Google cache banner.
             $(doc).find('div:first').css('margin', '0').css('padding', '0');
@@ -260,7 +258,9 @@ var Gcb = (function (publish) {
         watchLinks: function () {
             var doc = $(this.view.get(0).contentDocument);
             doc.find('body').on('click', 'a', function () {
-                can.route.attr('url', this.href);
+                setTimeout($.proxy(function(){
+                    can.route.attr('url', this.href);
+                }, this), 0);
                 return false;
             });
         },
