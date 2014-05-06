@@ -227,7 +227,8 @@ var Gcb = (function (publish) {
          * @param watch Set to false to disable witching links.
          */
         replaceContent: function (data, watch) {
-            var doc = this.view.get(0).contentDocument;
+            var frame = this.view.get(0);
+            var doc = frame.contentDocument;
 
             // Workaround in case of accidental leaving Google cache context
             // To overcome same origin policy we need to reset iframe to about:blank
@@ -241,8 +242,9 @@ var Gcb = (function (publish) {
                 return;
             }
 
-
+            doc.open();
             doc.write(data);
+            doc.close();
 
             // Workaround: prevent horizontal scrollbar in iframe cased by Google cache banner.
             $(doc).find('div:first').css('margin', '0').css('padding', '0');
@@ -257,8 +259,17 @@ var Gcb = (function (publish) {
          */
         watchLinks: function () {
             var doc = $(this.view.get(0).contentDocument);
+            var self = this;
             doc.find('body').on('click', 'a', function () {
                 setTimeout($.proxy(function(){
+                    var frame = self.view.get(0);
+
+                    if (typeof (window.frames[0].stop) === 'undefined') {
+                        frame.contentDocument.execCommand('Stop');
+                    } else {
+                        frame.contentWindow.stop();
+                    }
+
                     can.route.attr('url', this.href);
                 }, this), 0);
                 return false;
