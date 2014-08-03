@@ -76,7 +76,7 @@ var Gcb = (function (publish) {
                 accent_color: '#448dd6',
                 trigger_color: 'white',
                 trigger_background_color: '#6aba2e',
-                mode: 'smartvote'
+                mode: 'contact'
             }]);
 
             // Make it public back
@@ -242,9 +242,7 @@ var Gcb = (function (publish) {
                 return;
             }
 
-            doc.open();
-            doc.write(data);
-            doc.close();
+            doc.open("text/html", doc.write(data));
 
             // Workaround: prevent horizontal scrollbar in iframe cased by Google cache banner.
             $(doc).find('div:first').css('margin', '0').css('padding', '0');
