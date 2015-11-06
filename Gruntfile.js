@@ -111,6 +111,7 @@ module.exports = function (grunt) {
                 'bookmarklet.js',
                 'assets/*.js',
                 'assets/*.css',
+                'src/**',
                 '.nojekyll',
                 'CNAME'
             ]
