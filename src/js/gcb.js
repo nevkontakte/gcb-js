@@ -31,8 +31,8 @@ var Gcb = (function (publish) {
         'go/:url route': function (data) {
             var backend = this.options.backend[Math.floor(Math.random()*this.options.backend.length)];
             setTimeout(function () { // Trick to prevent "Request cancelled" problem in Chrome.
-                window.location.replace(backend + can.route.url(data));
-            }, 1)
+                document.location.replace(backend + can.route.url(data));
+            }, 500)
         }
     });
 
@@ -242,7 +242,9 @@ var Gcb = (function (publish) {
                 return;
             }
 
-            doc.open("text/html", doc.write(data));
+            doc.open("text/html", true);
+            doc.write(data);
+            doc.close();
 
             // Workaround: prevent horizontal scrollbar in iframe cased by Google cache banner.
             $(doc).find('div:first').css('margin', '0').css('padding', '0');
