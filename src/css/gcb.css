@@ -1,0 +1,40 @@
+.viewport {
+    background-color: #ffffff;
+}
+
+.navbar .btn-navbar {
+    height: auto;
+    min-height: inherit;
+}
+
+h1.gcb-logo {
+    text-align: center;
+    font-size: 6em;
+}
+
+h1.gcb-logo small{
+    font-size: 40%;
+}
+
+.gcb-logo .red { color: #E82042; }
+.gcb-logo .yellow { color: #FEC055; }
+.gcb-logo .green { color: #00AF31; }
+.gcb-logo .blue { color: #325ae8; }
+.gcb-logo .darkblue { color: #2b4ec9; }
+
+.modal-backdrop {
+    background-color: #444444;
+}
+
+.modal {
+    width: 70%;
+    margin-left: -35%;
+}
+
+.hero-unit.error h1 {
+    text-align: center;
+}
+
+.hero-unit.error {
+    padding: 2em !important;
+}
